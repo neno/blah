@@ -1,16 +1,32 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import singleSpaReact from "single-spa-react";
-import Root from "./root.component";
+// import React from "react";
+// import ReactDOM from "react-dom";
+// import singleSpaReact from "single-spa-react";
+// import Root from "./root.component";
 
-const lifecycles = singleSpaReact({
+// const lifecycles = singleSpaReact({
+//   React,
+//   ReactDOM,
+//   rootComponent: Root,
+//   errorBoundary(err, info, props) {
+//     // Customize the root error boundary for your microfrontend here.
+//     return null;
+//   },
+// });
+
+// export const { bootstrap, mount, unmount } = lifecycles;
+
+import React from 'react';
+import ReactDOMClient from 'react-dom/client';
+import Root from './root.component';
+// SingleSpaContext is a react@16.3 (if available) context that provides singleSpa props
+import singleSpaReact, { SingleSpaContext } from 'single-spa-react';
+
+export const { bootstrap, mount, unmount } = singleSpaReact({
   React,
-  ReactDOM,
+  ReactDOMClient,
   rootComponent: Root,
   errorBoundary(err, info, props) {
-    // Customize the root error boundary for your microfrontend here.
-    return null;
+    // https://reactjs.org/docs/error-boundaries.html
+    return <div>This renders when a catastrophic error occurs</div>;
   },
 });
-
-export const { bootstrap, mount, unmount } = lifecycles;
